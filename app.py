@@ -10,8 +10,6 @@ app = Flask(__name__)
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
 BASE_URL = "https://siteproxy.ai"
 
-ALLOWED_DOMAINS = {"lain.bgm.tv"}
-
 
 def check_url(url: str):
     if not url:
@@ -73,6 +71,7 @@ def proxy():
 
 
 if __name__ == "__main__":
+    ALLOWED_DOMAINS = set(os.getenv("URLPDOMAINS", "lain.bgm.tv").split(","))
     port = int(os.getenv("URLPPORT", 5000))
     ip = os.getenv("URLPIP", "::")
     app.run(host=ip, port=port)
