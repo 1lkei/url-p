@@ -73,5 +73,5 @@ def proxy():
 if __name__ == "__main__":
     ALLOWED_DOMAINS = set(os.getenv("URLPDOMAINS", "lain.bgm.tv").split(","))
     port = int(os.getenv("URLPPORT", 5000))
-    ip = os.getenv("URLPIP", "::")
-    app.run(host=ip, port=port)
+    host = os.getenv("URLPHOST", "::")
+    app.run(host=host, port=port)
