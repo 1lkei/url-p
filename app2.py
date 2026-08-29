@@ -4,7 +4,7 @@ from flask import Flask, request, redirect
 
 app = Flask(__name__)
 
-PROXY_PREFIX = os.getenv("PROXY_PREFIX")
+PROXY_PREFIX = os.getenv("URL_PROXY_PREFIX")
 ALLOWED_HOSTS = os.getenv("URLPDOMAINS")
 HOST = os.getenv("URLPHOST", "::")
 PORT = int(os.getenv("URLPPORT", 5000))
