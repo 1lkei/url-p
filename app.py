@@ -5,6 +5,11 @@ import os
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
+ALLOWED_DOMAINS = set(os.getenv("URLPDOMAINS").split(","))
+port = int(os.getenv("URLPPORT", 5000))
+host = os.getenv("URLPHOST", "::")
+ROUTE = "/" + os.getenv("URLPROUTE", "")
+
 app = Flask(__name__)
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
@@ -27,9 +32,9 @@ def check_url(url: str):
     return True
 
 
-@app.route("/api/proxy")
+@app.route(ROUTE)
 def proxy():
-    input_url = request.args.get("input")
+    input_url = request.args.get("url")
 
     try:
         check_url(input_url)
@@ -71,7 +76,4 @@ def proxy():
 
 
 if __name__ == "__main__":
-    ALLOWED_DOMAINS = set(os.getenv("URLPDOMAINS", "lain.bgm.tv").split(","))
-    port = int(os.getenv("URLPPORT", 5000))
-    host = os.getenv("URLPHOST", "::")
     app.run(host=host, port=port)
